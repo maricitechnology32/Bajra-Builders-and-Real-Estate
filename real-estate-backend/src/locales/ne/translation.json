@@ -32,5 +32,10 @@
   "errorTestimonialContentRequired": "प्रशंसापत्रको सामग्री आवश्यक छ",
   "errorInvalidTestimonialId": "अमान्य प्रशंसापत्र ID",
   "errorTestimonialNotFound": "प्रशंसापत्र फेला परेन",
-  "errorInvalidTestimonialStatus": "अमान्य स्थिति प्रदान गरियो। ' स्वीकृत' वा 'अस्वीकृत' हुनुपर्छ।"
+  "errorInvalidTestimonialStatus": "अमान्य स्थिति प्रदान गरियो। ' स्वीकृत' वा 'अस्वीकृत' हुनुपर्छ।",
+  "appointmentBookedSuccess": "अपोइन्टमेन्ट सफलतापूर्वक अनुरोध गरियो। एक प्रशासकले चाँडै पुष्टि गर्नेछ।",
+  "appointmentsFetchedSuccess": "अपोइन्टमेन्टहरू सफलतापूर्वक प्राप्त गरियो",
+  "appointmentUpdatedSuccess": "अपोइन्टमेन्ट सफलतापूर्वक अद्यावधिक भयो",
+  "errorInvalidAppointmentDate": "प्रदान गरिएको अपोइन्टमेन्ट मिति मान्य छैन।",
+  "errorAppointmentInPast": "विगतमा अपोइन्टमेन्ट बुक गर्न सकिँदैन।"
 }

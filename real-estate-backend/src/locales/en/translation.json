@@ -32,5 +32,10 @@
   "errorTestimonialContentRequired": "Testimonial content is required",
   "errorInvalidTestimonialId": "Invalid testimonial ID",
   "errorTestimonialNotFound": "Testimonial not found",
-  "errorInvalidTestimonialStatus": "Invalid status provided. Must be 'Approved' or 'Rejected'."
+  "errorInvalidTestimonialStatus": "Invalid status provided. Must be 'Approved' or 'Rejected'.",
+  "appointmentBookedSuccess": "Appointment requested successfully. An admin will confirm shortly.",
+  "appointmentsFetchedSuccess": "Appointments fetched successfully",
+  "appointmentUpdatedSuccess": "Appointment updated successfully",
+  "errorInvalidAppointmentDate": "The provided appointment date is not valid.",
+  "errorAppointmentInPast": "Cannot book an appointment in the past."
 }
