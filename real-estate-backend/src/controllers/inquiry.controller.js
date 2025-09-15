@@ -58,6 +58,23 @@ const getAllInquiries = asyncHandler(async (req, res) => {
 });
 
 /**
+ * @description Get all inquiries submitted by the currently logged-in user.
+ * @route GET /api/v1/inquiries/my-inquiries
+ * @access Private
+ */
+const getMyInquiries = asyncHandler(async (req, res) => {
+  const inquiries = await Inquiry.find({ user: req.user._id })
+    .populate('property', 'title images locationAddress status') // Get some details of the property
+    .sort({ createdAt: -1 });
+
+  return res.status(200).json(
+    new ApiResponse(200, inquiries, req.t('inquiriesFetchedSuccess'))
+  );
+});
+
+
+
+/**
  * @description Update the status of an inquiry. Admin access required.
  * @route PATCH /api/v1/inquiries/:id
  * @access Private/Admin
@@ -86,4 +103,4 @@ const updateInquiryStatus = asyncHandler(async (req, res) => {
   );
 });
 
-export { createInquiry, getAllInquiries, updateInquiryStatus };
+export { createInquiry, getAllInquiries, updateInquiryStatus, getMyInquiries };
