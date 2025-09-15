@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 const userSchema = new mongoose.Schema(
   {
@@ -29,11 +30,50 @@ const userSchema = new mongoose.Schema(
     refreshToken: {
       type: String,
     },
+    forgotPasswordToken: String,
+    forgotPasswordTokenExpiry: Date,
+    avatar: {
+      url: {
+        type: String, // URL from a cloud storage service like Cloudinary
+      },
+      cloudinary_id: {
+        type: String,
+      },
+    },
+    phoneNumber: {
+      type: String,
+      trim: true,
+    },
+    address: {
+      type: String,
+      trim: true,
+    },
+    bio: {
+      type: String,
+      trim: true,
+    },
   },
   {
     timestamps: true, // Automatically adds createdAt and updatedAt fields
   }
 );
+
+//method to generate a password reset token
+userSchema.methods.generatePasswordResetToken = function () {
+  // 1. Generate a random, unhashed token
+  const resetToken = crypto.randomBytes(20).toString('hex');
+  // 2. Hash the token and set it on the user document
+  this.forgotPasswordToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  // 3. Set an expiry time (e.g., 10 minutes from now)
+  this.forgotPasswordTokenExpiry = Date.now() + 10 * 60 * 1000;
+
+  // 4. Return the unhashed token (this is what we email to the user)
+  return resetToken;
+};
 
 // Mongoose Hook: Hash password before saving
 userSchema.pre('save', async function (next) {

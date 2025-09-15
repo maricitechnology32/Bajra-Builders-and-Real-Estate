@@ -5,10 +5,19 @@ import {
   logoutUser,
   refreshAccessToken,
   googleLoginCallback,
-  getCurrentUser, // We will add this controller function next
+  getCurrentUser,
+  forgotPassword,
+  resetPassword,
+  updateUserAvatar,
+  updateUserProfile,
+  changePassword
 } from '../controllers/user.controller.js';
+console.log('Is the changePassword controller a function?', typeof changePassword);
+
 import { verifyJWT } from '../middlewares/auth.middleware.js';
+import { upload } from '../middlewares/multer.middleware.js';
 import passport from 'passport';
+
 
 const router = Router();
 
@@ -16,6 +25,10 @@ const router = Router();
 router.route('/register').post(registerUser);
 router.route('/login').post(loginUser); // For manual email & password login
 router.route('/refresh-token').post(refreshAccessToken); // To get a new access token
+router.route('/forgot-password').post(forgotPassword);
+router.route('/reset-password/:token').post(resetPassword);
+
+
 
 // --- Google OAuth Routes ---
 router
@@ -29,5 +42,11 @@ router
 // --- Secured Routes (Authentication Required) ---
 router.route('/logout').post(verifyJWT, logoutUser);
 router.route('/me').get(verifyJWT, getCurrentUser); // To get the current logged-in user's details
+router.route('/avatar').patch(verifyJWT, upload.single('avatar'), updateUserAvatar);
+router.route('/update-profile').patch(verifyJWT, updateUserProfile);
+router.route('/change-password').post(verifyJWT, changePassword)
+// router.route('/password-update-test').post(verifyJWT, changePassword);
+
+
 
 export default router;
