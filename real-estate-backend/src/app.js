@@ -11,6 +11,7 @@ import i18nextMiddleware from 'i18next-http-middleware'; // Import the middlewar
 import propertyRouter from './routes/property.routes.js';
 import inquiryRouter from './routes/inquiry.routes.js';
 import wishlistRouter from './routes/wishlist.routes.js';
+import testimonialRouter from './routes/testimonial.routes.js';
 // Use CORS middleware
 app.use(
   cors({
@@ -34,7 +35,7 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/properties', propertyRouter);
 app.use('/api/v1/inquiries', inquiryRouter);
 app.use('/api/v1/wishlist', wishlistRouter); 
-
+app.use('/api/v1/testimonials', testimonialRouter); 
 // A simple route for health check
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Server is healthy!' });

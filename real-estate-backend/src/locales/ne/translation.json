@@ -25,5 +25,12 @@
   "inquirySubmittedSuccess": "जिज्ञासा सफलतापूर्वक पेश गरियो",
   "inquiriesFetchedSuccess": "जिज्ञासाहरू सफलतापूर्वक प्राप्त गरियो",
   "inquiryStatusUpdatedSuccess": "जिज्ञासाको स्थिति सफलतापूर्वक अद्यावधिक भयो",
-  "errorInvalidStatus": "अमान्य स्थिति प्रदान गरियो। कृपया अनुमति दिइएको मानहरू मध्ये एक प्रयोग गर्नुहोस्।"
+  "errorInvalidStatus": "अमान्य स्थिति प्रदान गरियो। कृपया अनुमति दिइएको मानहरू मध्ये एक प्रयोग गर्नुहोस्।",
+  "testimonialSubmittedSuccess": "प्रशंसापत्र सफलतापूर्वक पेश गरियो। यसलाई एक प्रशासकद्वारा समीक्षा गरिनेछ।",
+  "testimonialsFetchedSuccess": "प्रशंसापत्रहरू सफलतापूर्वक प्राप्त गरियो",
+  "testimonialStatusUpdatedSuccess": "प्रशंसापत्रको स्थिति सफलतापूर्वक अद्यावधिक भयो",
+  "errorTestimonialContentRequired": "प्रशंसापत्रको सामग्री आवश्यक छ",
+  "errorInvalidTestimonialId": "अमान्य प्रशंसापत्र ID",
+  "errorTestimonialNotFound": "प्रशंसापत्र फेला परेन",
+  "errorInvalidTestimonialStatus": "अमान्य स्थिति प्रदान गरियो। ' स्वीकृत' वा 'अस्वीकृत' हुनुपर्छ।"
 }

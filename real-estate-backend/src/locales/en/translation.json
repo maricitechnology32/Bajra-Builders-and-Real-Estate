@@ -25,5 +25,12 @@
   "inquirySubmittedSuccess": "Inquiry submitted successfully",
   "inquiriesFetchedSuccess": "Inquiries fetched successfully",
   "inquiryStatusUpdatedSuccess": "Inquiry status updated successfully",
-  "errorInvalidStatus": "Invalid status provided. Please use one of the allowed values."
+  "errorInvalidStatus": "Invalid status provided. Please use one of the allowed values.",
+  "testimonialSubmittedSuccess": "Testimonial submitted successfully. It will be reviewed by an admin.",
+  "testimonialsFetchedSuccess": "Testimonials fetched successfully",
+  "testimonialStatusUpdatedSuccess": "Testimonial status updated successfully",
+  "errorTestimonialContentRequired": "Testimonial content is required",
+  "errorInvalidTestimonialId": "Invalid testimonial ID",
+  "errorTestimonialNotFound": "Testimonial not found",
+  "errorInvalidTestimonialStatus": "Invalid status provided. Must be 'Approved' or 'Rejected'."
 }
