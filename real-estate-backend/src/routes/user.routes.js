@@ -14,9 +14,9 @@ import {
 } from '../controllers/user.controller.js';
 console.log('Is the changePassword controller a function?', typeof changePassword);
 
-import { verifyJWT } from '../middlewares/auth.middleware.js';
 import { upload } from '../middlewares/multer.middleware.js';
 import passport from 'passport';
+import { verifyJWT, verifyRole } from '../middlewares/auth.middleware.js';
 
 
 const router = Router();
@@ -46,7 +46,15 @@ router.route('/avatar').patch(verifyJWT, upload.single('avatar'), updateUserAvat
 router.route('/update-profile').patch(verifyJWT, updateUserProfile);
 router.route('/change-password').post(verifyJWT, changePassword)
 // router.route('/password-update-test').post(verifyJWT, changePassword);
-
-
+router.route('/admin/analytics').get(
+  verifyJWT,              // 1. Checks if the user is logged in.
+  verifyRole(['ADMIN']),  // 2. Checks if the logged-in user is an ADMIN.
+  // getAdminAnalytics       // 3. Only runs if both checks pass.
+);
+router.route('/shared-feature').get(
+  verifyJWT,
+  verifyRole(['ADMIN', 'BUYER']), // Both roles are allowed
+  // getSharedFeatureData
+);
 
 export default router;

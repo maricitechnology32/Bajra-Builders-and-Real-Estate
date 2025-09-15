@@ -14,5 +14,12 @@
   "errorEmailExists": "User with this email already exists",
   "errorAllFieldsRequired": "All fields are required",
   "errorInvalidToken": "Token is invalid or has expired",
-  "errorUnauthorized": "Unauthorized request"
+  "errorUnauthorized": "Unauthorized request",
+  "propertyListedSuccess": "Property listed successfully",
+  "propertiesFetchedSuccess": "Properties fetched successfully",
+  "propertyDetailsFetchedSuccess": "Property details fetched successfully",
+  "propertyUpdatedSuccess": "Property updated successfully",
+  "propertyDeletedSuccess": "Property deleted successfully",
+  "errorPropertyNotFound": "Property not found",
+  "errorInvalidPropertyId": "Invalid property ID"
 }

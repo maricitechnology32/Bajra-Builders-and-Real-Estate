@@ -14,5 +14,12 @@
   "errorEmailExists": "यो इमेल भएको प्रयोगकर्ता पहिले नै अवस्थित छ",
   "errorAllFieldsRequired": "सबै फिल्डहरू आवश्यक छन्",
   "errorInvalidToken": "टोकन अमान्य छ वा म्याद सकिएको छ",
-  "errorUnauthorized": "अनाधिकृत अनुरोध"
+  "errorUnauthorized": "अनाधिकृत अनुरोध",
+  "propertyListedSuccess": "सम्पत्ति सफलतापूर्वक सूचीबद्ध भयो",
+  "propertiesFetchedSuccess": "सम्पत्तिहरू सफलतापूर्वक प्राप्त गरियो",
+  "propertyDetailsFetchedSuccess": "सम्पत्तिको विवरण सफलतापूर्वक प्राप्त भयो",
+  "propertyUpdatedSuccess": "सम्पत्ति सफलतापूर्वक अद्यावधिक भयो",
+  "propertyDeletedSuccess": "सम्पत्ति सफलतापूर्वक हटाइयो",
+  "errorPropertyNotFound": "सम्पत्ति फेला परेन",
+  "errorInvalidPropertyId": "अमान्य सम्पत्ति ID"
 }
