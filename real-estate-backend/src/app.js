@@ -4,6 +4,8 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 const app = express();
+import passport from 'passport';
+import './config/passport.setup.js';
 
 // Use CORS middleware
 app.use(
@@ -18,6 +20,7 @@ app.use(express.json({ limit: '16kb' }));
 // Middleware for parsing URL-encoded request bodies
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(cookieParser()); // Use cookie-parser middleware
+app.use(passport.initialize());
 
 // --- Routes ---
 import userRouter from './routes/user.routes.js';
