@@ -84,10 +84,17 @@ const propertySchema = new mongoose.Schema(
       sourceType: { type: String, enum: ['upload', 'link'] },
       cloudinary_id: { type: String }, // Only for 'upload' type
     },
+    
     listedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
+    },
+    costDetails: {
+      basePrice: { type: Number },
+      taxes: { type: Number },
+      registrationFees: { type: Number },
+      otherCharges: { type: Number },
     },
     metaTitle: { type: String },
     metaDescription: { type: String },

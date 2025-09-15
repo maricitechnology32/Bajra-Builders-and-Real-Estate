@@ -7,22 +7,14 @@ import { Property } from '../models/property.model.js';
 import { deleteFromCloudinary } from '../utils/cloudinary.js';
 import mongoose from 'mongoose';
 
+ 
+
 // const createProperty = asyncHandler(async (req, res) => {
+//   // Destructure all fields, including new SEO fields
 //   const {
-//     title,
-//     description,
-//     price,
-//     locationAddress,
-//     location,
-//     propertyType,
-//     status,
-//     area,
-//     bedrooms,
-//     bathrooms,
-//     amenities,
-//     images,
-//     videos,
-//     virtualTour,
+//     title, description, price, locationAddress, location, propertyType,
+//     status, area, bedrooms, bathrooms, amenities, images, videos, virtualTour,
+//     metaTitle, metaDescription, metaKeywords
 //   } = req.body;
 
 //   if (!title || !description || !price || !locationAddress || !location || !propertyType) {
@@ -30,20 +22,12 @@ import mongoose from 'mongoose';
 //   }
 
 //   const property = await Property.create({
-//     title,
-//     description,
-//     price,
-//     locationAddress,
-//     location,
-//     propertyType,
-//     status,
-//     area,
-//     bedrooms,
-//     bathrooms,
-//     amenities,
-//     images,
-//     videos,
-//     virtualTour,
+//     title, description, price, locationAddress, location, propertyType,
+//     status, area, bedrooms, bathrooms, amenities, images, videos, virtualTour,
+//     metaTitle,
+//     metaDescription,
+//     // Convert comma-separated string to an array
+//     metaKeywords: metaKeywords ? metaKeywords.split(',').map(key => key.trim()) : [],
 //     listedBy: req.user._id,
 //   });
 
@@ -58,10 +42,11 @@ import mongoose from 'mongoose';
 
 
 const createProperty = asyncHandler(async (req, res) => {
-  // Destructure all fields, including new SEO fields
+  // Destructure all fields, including the new costDetails object
   const {
     title, description, price, locationAddress, location, propertyType,
     status, area, bedrooms, bathrooms, amenities, images, videos, virtualTour,
+    costDetails, // Add this
     metaTitle, metaDescription, metaKeywords
   } = req.body;
 
@@ -72,9 +57,9 @@ const createProperty = asyncHandler(async (req, res) => {
   const property = await Property.create({
     title, description, price, locationAddress, location, propertyType,
     status, area, bedrooms, bathrooms, amenities, images, videos, virtualTour,
+    costDetails, // Add this
     metaTitle,
     metaDescription,
-    // Convert comma-separated string to an array
     metaKeywords: metaKeywords ? metaKeywords.split(',').map(key => key.trim()) : [],
     listedBy: req.user._id,
   });
@@ -87,6 +72,7 @@ const createProperty = asyncHandler(async (req, res) => {
     new ApiResponse(201, property, req.t('propertyListedSuccess'))
   );
 });
+
 
 const getAllProperties = asyncHandler(async (req, res) => {
   // --- Filtering & Searching ---
