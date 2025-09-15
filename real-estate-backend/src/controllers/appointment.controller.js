@@ -5,7 +5,7 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 import { Appointment } from '../models/appointment.model.js';
 import { Property } from '../models/property.model.js';
 
- 
+
 const createAppointment = asyncHandler(async (req, res) => {
   const { propertyId, appointmentDate, notes } = req.body;
   const userId = req.user._id;
@@ -41,7 +41,7 @@ const createAppointment = asyncHandler(async (req, res) => {
   );
 });
 
- 
+
 const getUserAppointments = asyncHandler(async (req, res) => {
   const appointments = await Appointment.find({ user: req.user._id })
     .populate('property', 'title images locationAddress')
@@ -52,7 +52,7 @@ const getUserAppointments = asyncHandler(async (req, res) => {
   );
 });
 
- 
+
 const getAllAppointmentsForAdmin = asyncHandler(async (req, res) => {
   const appointments = await Appointment.find()
     .populate('property', 'title locationAddress')
@@ -64,7 +64,7 @@ const getAllAppointmentsForAdmin = asyncHandler(async (req, res) => {
   );
 });
 
- 
+
 const updateAppointment = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { status, appointmentDate } = req.body;

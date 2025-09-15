@@ -56,7 +56,7 @@ const createProperty = asyncHandler(async (req, res) => {
   );
 });
 
- 
+
 const getAllProperties = asyncHandler(async (req, res) => {
   // --- Filtering & Searching ---
   const { search, propertyType, status, minPrice, maxPrice } = req.query;
@@ -127,14 +127,34 @@ const getPropertyById = asyncHandler(async (req, res) => {
     throw new ApiError(400, req.t('errorInvalidPropertyId'));
   }
 
-  const property = await Property.findById(id).populate('listedBy', 'fullName avatar');
+  const property = await Property.findById(id).populate(
+    'listedBy',
+    'fullName avatar email phoneNumber'
+  );
 
   if (!property) {
     throw new ApiError(404, req.t('errorPropertyNotFound'));
   }
 
+  // --- NEW LOGIC for finding similar properties ---
+  const priceRange = property.price * 0.30; // +/- 30% of the price
+  const minPrice = property.price - priceRange;
+  const maxPrice = property.price + priceRange;
+
+  const similarProperties = await Property.find({
+    _id: { $ne: id }, // Exclude the current property itself
+    propertyType: property.propertyType, // Match the same property type
+    price: { $gte: minPrice, $lte: maxPrice }, // Match a similar price range
+  })
+    .limit(4) // Limit to 4 recommendations
+    .select('title price locationAddress propertyType images'); // Select only a few key fields
+
   return res.status(200).json(
-    new ApiResponse(200, property, req.t('propertyDetailsFetchedSuccess'))
+    new ApiResponse(
+      200,
+      { property, similarProperties }, // Return both the main property and the recommendations
+      req.t('propertyDetailsFetchedSuccess')
+    )
   );
 });
 

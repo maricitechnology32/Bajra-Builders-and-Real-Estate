@@ -43,5 +43,9 @@
   "postDeletedSuccess": "Post deleted successfully",
   "postsFetchedSuccess": "Posts fetched successfully",
   "postFetchedSuccess": "Post fetched successfully",
-  "errorPostNotFound": "Post not found"
+  "errorPostNotFound": "Post not found",
+  "savedSearchCreatedSuccess": "Search saved successfully",
+  "savedSearchesFetchedSuccess": "Saved searches fetched successfully",
+  "savedSearchDeletedSuccess": "Saved search deleted successfully",
+  "errorSavedSearchNotFound": "Saved search not found or you do not have permission to access it"
 }

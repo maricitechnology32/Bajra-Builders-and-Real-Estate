@@ -43,5 +43,9 @@
   "postDeletedSuccess": "पोस्ट सफलतापूर्वक हटाइयो",
   "postsFetchedSuccess": "पोस्टहरू सफलतापूर्वक प्राप्त गरियो",
   "postFetchedSuccess": "पोस्ट सफलतापूर्वक प्राप्त भयो",
-  "errorPostNotFound": "पोस्ट फेला परेन"
+  "errorPostNotFound": "पोस्ट फेला परेन",
+  "savedSearchCreatedSuccess": "खोज सफलतापूर्वक सुरक्षित गरियो",
+  "savedSearchesFetchedSuccess": "सुरक्षित गरिएका खोजहरू सफलतापूर्वक प्राप्त गरियो",
+  "savedSearchDeletedSuccess": "सुरक्षित गरिएको खोज सफलतापूर्वक हटाइयो",
+  "errorSavedSearchNotFound": "सुरक्षित गरिएको खोज फेला परेन वा तपाइँसँग यसमा पहुँच गर्ने अनुमति छैन"
 }
