@@ -56,11 +56,7 @@ const createProperty = asyncHandler(async (req, res) => {
   );
 });
 
-/**
- * @description Get all property listings with search, filtering, and pagination.
- * @route GET /api/v1/properties
- * @access Public
- */
+ 
 const getAllProperties = asyncHandler(async (req, res) => {
   // --- Filtering & Searching ---
   const { search, propertyType, status, minPrice, maxPrice } = req.query;

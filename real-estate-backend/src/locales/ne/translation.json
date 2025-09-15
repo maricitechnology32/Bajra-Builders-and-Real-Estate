@@ -37,5 +37,11 @@
   "appointmentsFetchedSuccess": "अपोइन्टमेन्टहरू सफलतापूर्वक प्राप्त गरियो",
   "appointmentUpdatedSuccess": "अपोइन्टमेन्ट सफलतापूर्वक अद्यावधिक भयो",
   "errorInvalidAppointmentDate": "प्रदान गरिएको अपोइन्टमेन्ट मिति मान्य छैन।",
-  "errorAppointmentInPast": "विगतमा अपोइन्टमेन्ट बुक गर्न सकिँदैन।"
+  "errorAppointmentInPast": "विगतमा अपोइन्टमेन्ट बुक गर्न सकिँदैन।",
+  "postCreatedSuccess": "पोस्ट सफलतापूर्वक सिर्जना भयो",
+  "postUpdatedSuccess": "पोस्ट सफलतापूर्वक अद्यावधिक भयो",
+  "postDeletedSuccess": "पोस्ट सफलतापूर्वक हटाइयो",
+  "postsFetchedSuccess": "पोस्टहरू सफलतापूर्वक प्राप्त गरियो",
+  "postFetchedSuccess": "पोस्ट सफलतापूर्वक प्राप्त भयो",
+  "errorPostNotFound": "पोस्ट फेला परेन"
 }

@@ -5,11 +5,7 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 import { Inquiry } from '../models/inquiry.model.js';
 import { Property } from '../models/property.model.js';
 
-/**
- * @description Create a new inquiry for a property. User access required.
- * @route POST /api/v1/inquiries
- * @access Private
- */
+ 
 const createInquiry = asyncHandler(async (req, res) => {
   const { propertyId, message, name, email, phone } = req.body;
   const userId = req.user._id;
@@ -41,11 +37,7 @@ const createInquiry = asyncHandler(async (req, res) => {
   );
 });
 
-/**
- * @description Get all inquiries. Admin access required.
- * @route GET /api/v1/inquiries
- * @access Private/Admin
- */
+ 
 const getAllInquiries = asyncHandler(async (req, res) => {
   const inquiries = await Inquiry.find()
     .populate('property', 'title locationAddress')
@@ -57,11 +49,7 @@ const getAllInquiries = asyncHandler(async (req, res) => {
   );
 });
 
-/**
- * @description Get all inquiries submitted by the currently logged-in user.
- * @route GET /api/v1/inquiries/my-inquiries
- * @access Private
- */
+ 
 const getMyInquiries = asyncHandler(async (req, res) => {
   const inquiries = await Inquiry.find({ user: req.user._id })
     .populate('property', 'title images locationAddress status') // Get some details of the property
@@ -72,13 +60,6 @@ const getMyInquiries = asyncHandler(async (req, res) => {
   );
 });
 
-
-
-/**
- * @description Update the status of an inquiry. Admin access required.
- * @route PATCH /api/v1/inquiries/:id
- * @access Private/Admin
- */
 const updateInquiryStatus = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;

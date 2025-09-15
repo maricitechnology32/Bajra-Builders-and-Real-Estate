@@ -5,11 +5,7 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 import { Appointment } from '../models/appointment.model.js';
 import { Property } from '../models/property.model.js';
 
-/**
- * @description Create a new appointment request. User access required.
- * @route POST /api/v1/appointments
- * @access Private
- */
+ 
 const createAppointment = asyncHandler(async (req, res) => {
   const { propertyId, appointmentDate, notes } = req.body;
   const userId = req.user._id;
@@ -45,11 +41,7 @@ const createAppointment = asyncHandler(async (req, res) => {
   );
 });
 
-/**
- * @description Get all appointments for the logged-in user.
- * @route GET /api/v1/appointments
- * @access Private
- */
+ 
 const getUserAppointments = asyncHandler(async (req, res) => {
   const appointments = await Appointment.find({ user: req.user._id })
     .populate('property', 'title images locationAddress')
@@ -60,11 +52,7 @@ const getUserAppointments = asyncHandler(async (req, res) => {
   );
 });
 
-/**
- * @description Get all appointments for admin view.
- * @route GET /api/v1/appointments/all
- * @access Private/Admin
- */
+ 
 const getAllAppointmentsForAdmin = asyncHandler(async (req, res) => {
   const appointments = await Appointment.find()
     .populate('property', 'title locationAddress')
@@ -76,11 +64,7 @@ const getAllAppointmentsForAdmin = asyncHandler(async (req, res) => {
   );
 });
 
-/**
- * @description Update an appointment (status or date). Admin access required.
- * @route PATCH /api/v1/appointments/:id
- * @access Private/Admin
- */
+ 
 const updateAppointment = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { status, appointmentDate } = req.body;

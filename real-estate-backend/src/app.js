@@ -13,6 +13,7 @@ import inquiryRouter from './routes/inquiry.routes.js';
 import wishlistRouter from './routes/wishlist.routes.js';
 import testimonialRouter from './routes/testimonial.routes.js';
 import appointmentRouter from './routes/appointment.routes.js';
+import postRouter from './routes/post.routes.js';
 // Use CORS middleware
 app.use(
   cors({
@@ -38,6 +39,7 @@ app.use('/api/v1/inquiries', inquiryRouter);
 app.use('/api/v1/wishlist', wishlistRouter); 
 app.use('/api/v1/testimonials', testimonialRouter); 
 app.use('/api/v1/appointments', appointmentRouter);
+app.use('/api/v1/posts', postRouter);
 // A simple route for health check
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Server is healthy!' });

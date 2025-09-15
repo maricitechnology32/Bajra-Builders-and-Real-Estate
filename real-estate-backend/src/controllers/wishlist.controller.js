@@ -5,11 +5,7 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 import { User } from '../models/user.model.js';
 import { Property } from '../models/property.model.js';
 
-/**
- * @description Toggles a property in the user's wishlist (adds if not present, removes if present).
- * @route POST /api/v1/wishlist/toggle/:propertyId
- * @access Private
- */
+ 
 const toggleWishlistItem = asyncHandler(async (req, res) => {
   const { propertyId } = req.params;
   const userId = req.user._id;
@@ -52,11 +48,7 @@ const toggleWishlistItem = asyncHandler(async (req, res) => {
   );
 });
 
-/**
- * @description Gets the current user's wishlist with populated property details.
- * @route GET /api/v1/wishlist
- * @access Private
- */
+ 
 const getWishlist = asyncHandler(async (req, res) => {
   const userWithWishlist = await User.findById(req.user._id).populate({
     path: 'wishlist',

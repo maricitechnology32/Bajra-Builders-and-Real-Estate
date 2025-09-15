@@ -37,5 +37,11 @@
   "appointmentsFetchedSuccess": "Appointments fetched successfully",
   "appointmentUpdatedSuccess": "Appointment updated successfully",
   "errorInvalidAppointmentDate": "The provided appointment date is not valid.",
-  "errorAppointmentInPast": "Cannot book an appointment in the past."
+  "errorAppointmentInPast": "Cannot book an appointment in the past.",
+  "postCreatedSuccess": "Post created successfully",
+  "postUpdatedSuccess": "Post updated successfully",
+  "postDeletedSuccess": "Post deleted successfully",
+  "postsFetchedSuccess": "Posts fetched successfully",
+  "postFetchedSuccess": "Post fetched successfully",
+  "errorPostNotFound": "Post not found"
 }
