@@ -2,7 +2,7 @@
 
 import express from 'express';
 import cors from 'cors';
-
+import cookieParser from 'cookie-parser';
 const app = express();
 
 // Use CORS middleware
@@ -17,6 +17,12 @@ app.use(
 app.use(express.json({ limit: '16kb' }));
 // Middleware for parsing URL-encoded request bodies
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
+app.use(cookieParser()); // Use cookie-parser middleware
+
+// --- Routes ---
+import userRouter from './routes/user.routes.js';
+// Route declaration
+app.use('/api/v1/users', userRouter);
 
 // A simple route for health check
 app.get('/', (req, res) => {
