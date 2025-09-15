@@ -21,5 +21,9 @@
   "propertyUpdatedSuccess": "सम्पत्ति सफलतापूर्वक अद्यावधिक भयो",
   "propertyDeletedSuccess": "सम्पत्ति सफलतापूर्वक हटाइयो",
   "errorPropertyNotFound": "सम्पत्ति फेला परेन",
-  "errorInvalidPropertyId": "अमान्य सम्पत्ति ID"
+  "errorInvalidPropertyId": "अमान्य सम्पत्ति ID",
+  "inquirySubmittedSuccess": "जिज्ञासा सफलतापूर्वक पेश गरियो",
+  "inquiriesFetchedSuccess": "जिज्ञासाहरू सफलतापूर्वक प्राप्त गरियो",
+  "inquiryStatusUpdatedSuccess": "जिज्ञासाको स्थिति सफलतापूर्वक अद्यावधिक भयो",
+  "errorInvalidStatus": "अमान्य स्थिति प्रदान गरियो। कृपया अनुमति दिइएको मानहरू मध्ये एक प्रयोग गर्नुहोस्।"
 }

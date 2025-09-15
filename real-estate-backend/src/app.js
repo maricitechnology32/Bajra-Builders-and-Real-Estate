@@ -9,7 +9,8 @@ import './config/passport.setup.js';
 import i18next from './config/i18next.config.js'; // Import i18next config
 import i18nextMiddleware from 'i18next-http-middleware'; // Import the middleware
 import propertyRouter from './routes/property.routes.js';
-
+import inquiryRouter from './routes/inquiry.routes.js';
+import wishlistRouter from './routes/wishlist.routes.js';
 // Use CORS middleware
 app.use(
   cors({
@@ -30,8 +31,9 @@ app.use(i18nextMiddleware.handle(i18next));
 import userRouter from './routes/user.routes.js';
 // Route declaration
 app.use('/api/v1/users', userRouter);
-app.use('/api/v1/properties', propertyRouter);  
-
+app.use('/api/v1/properties', propertyRouter);
+app.use('/api/v1/inquiries', inquiryRouter);
+app.use('/api/v1/wishlist', wishlistRouter); 
 
 // A simple route for health check
 app.get('/', (req, res) => {

@@ -1,4 +1,4 @@
- 
+
 
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { ApiError } from '../utils/ApiError.js';
@@ -56,11 +56,71 @@ const createProperty = asyncHandler(async (req, res) => {
   );
 });
 
+/**
+ * @description Get all property listings with search, filtering, and pagination.
+ * @route GET /api/v1/properties
+ * @access Public
+ */
 const getAllProperties = asyncHandler(async (req, res) => {
-  const properties = await Property.find().populate('listedBy', 'fullName avatar');
+  // --- Filtering & Searching ---
+  const { search, propertyType, status, minPrice, maxPrice } = req.query;
+  const query = {};
 
+  // Build search query for title and locationAddress (case-insensitive)
+  if (search) {
+    query.$or = [
+      { title: { $regex: search, $options: 'i' } },
+      { locationAddress: { $regex: search, $options: 'i' } },
+    ];
+  }
+
+  // Build filter query for propertyType
+  if (propertyType) {
+    query.propertyType = propertyType;
+  }
+
+  // Build filter query for status
+  if (status) {
+    query.status = status;
+  }
+
+  // Build filter query for price range
+  if (minPrice || maxPrice) {
+    query.price = {};
+    if (minPrice) query.price.$gte = Number(minPrice);
+    if (maxPrice) query.price.$lte = Number(maxPrice);
+  }
+
+  // --- Pagination ---
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  // --- Execute Query ---
+  const properties = await Property.find(query)
+    .populate('listedBy', 'fullName avatar')
+    .sort({ createdAt: -1 }) // Sort by newest first
+    .limit(limit)
+    .skip(skip);
+
+  // Get the total count of documents matching the query for pagination info
+  const totalProperties = await Property.countDocuments(query);
+  const totalPages = Math.ceil(totalProperties / limit);
+
+  // --- Send Response ---
   return res.status(200).json(
-    new ApiResponse(200, properties, req.t('propertiesFetchedSuccess'))
+    new ApiResponse(
+      200,
+      {
+        properties,
+        pagination: {
+          currentPage: page,
+          totalPages,
+          totalProperties,
+        },
+      },
+      req.t('propertiesFetchedSuccess')
+    )
   );
 });
 

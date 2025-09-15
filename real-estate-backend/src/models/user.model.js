@@ -52,6 +52,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    wishlist: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Property',
+      },
+    ],
   },
   {
     timestamps: true, // Automatically adds createdAt and updatedAt fields

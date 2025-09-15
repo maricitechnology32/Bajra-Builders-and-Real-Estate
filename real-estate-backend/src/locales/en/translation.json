@@ -21,5 +21,9 @@
   "propertyUpdatedSuccess": "Property updated successfully",
   "propertyDeletedSuccess": "Property deleted successfully",
   "errorPropertyNotFound": "Property not found",
-  "errorInvalidPropertyId": "Invalid property ID"
+  "errorInvalidPropertyId": "Invalid property ID",
+  "inquirySubmittedSuccess": "Inquiry submitted successfully",
+  "inquiriesFetchedSuccess": "Inquiries fetched successfully",
+  "inquiryStatusUpdatedSuccess": "Inquiry status updated successfully",
+  "errorInvalidStatus": "Invalid status provided. Please use one of the allowed values."
 }
