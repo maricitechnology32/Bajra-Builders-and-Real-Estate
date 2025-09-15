@@ -24,7 +24,6 @@ app.use(
     credentials: true,
   })
 );
-
 // Middleware for parsing JSON request bodies
 app.use(express.json({ limit: '16kb' }));
 // Middleware for parsing URL-encoded request bodies
