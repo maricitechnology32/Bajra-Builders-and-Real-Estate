@@ -51,5 +51,8 @@
   "callbackRequestSuccess": "कलब्याक सफलतापूर्वक अनुरोध गरियो। हामी तपाईंलाई चाँडै सम्पर्क गर्नेछौं।",
   "callbackRequestsFetchedSuccess": "कलब्याक अनुरोधहरू सफलतापूर्वक प्राप्त गरियो",
   "callbackRequestUpdatedSuccess": "कलब्याक अनुरोध सफलतापूर्वक अद्यावधिक भयो",
-  "errorCallbackRequestNotFound": "कलब्याक अनुरोध फेला परेन"
+  "errorCallbackRequestNotFound": "कलब्याक अनुरोध फेला परेन",
+  "seoDataSavedSuccess": "SEO डाटा सफलतापूर्वक सुरक्षित गरियो",
+  "seoDataFetchedSuccess": "SEO डाटा सफलतापूर्वक प्राप्त गरियो",
+  "errorSeoDataNotFound": "यस पृष्ठको लागि SEO डाटा अझै कन्फिगर गरिएको छैन"
 }

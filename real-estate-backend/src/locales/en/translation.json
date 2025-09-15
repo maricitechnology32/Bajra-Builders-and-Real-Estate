@@ -51,5 +51,8 @@
   "callbackRequestSuccess": "Callback requested successfully. We will contact you shortly.",
   "callbackRequestsFetchedSuccess": "Callback requests fetched successfully",
   "callbackRequestUpdatedSuccess": "Callback request updated successfully",
-  "errorCallbackRequestNotFound": "Callback request not found"
+  "errorCallbackRequestNotFound": "Callback request not found",
+  "seoDataSavedSuccess": "SEO data saved successfully",
+  "seoDataFetchedSuccess": "SEO data fetched successfully",
+  "errorSeoDataNotFound": "SEO data for this page has not been configured yet"
 }

@@ -16,7 +16,7 @@ import appointmentRouter from './routes/appointment.routes.js';
 import postRouter from './routes/post.routes.js';
 import savedSearchRouter from './routes/savedSearch.routes.js';
 import callbackRequestRouter from './routes/callbackRequest.routes.js';
-
+import seoDataRouter from './routes/seoData.routes.js';
 // Use CORS middleware
 app.use(
   cors({
@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(cookieParser()); // Use cookie-parser middleware
 app.use(passport.initialize());
 app.use(i18nextMiddleware.handle(i18next));
-
+app.use('/api/v1/seo', seoDataRouter);
 // --- Routes ---
 import userRouter from './routes/user.routes.js';
 // Route declaration
