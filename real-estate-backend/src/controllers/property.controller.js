@@ -7,22 +7,62 @@ import { Property } from '../models/property.model.js';
 import { deleteFromCloudinary } from '../utils/cloudinary.js';
 import mongoose from 'mongoose';
 
+// const createProperty = asyncHandler(async (req, res) => {
+//   const {
+//     title,
+//     description,
+//     price,
+//     locationAddress,
+//     location,
+//     propertyType,
+//     status,
+//     area,
+//     bedrooms,
+//     bathrooms,
+//     amenities,
+//     images,
+//     videos,
+//     virtualTour,
+//   } = req.body;
+
+//   if (!title || !description || !price || !locationAddress || !location || !propertyType) {
+//     throw new ApiError(400, req.t('errorAllFieldsRequired'));
+//   }
+
+//   const property = await Property.create({
+//     title,
+//     description,
+//     price,
+//     locationAddress,
+//     location,
+//     propertyType,
+//     status,
+//     area,
+//     bedrooms,
+//     bathrooms,
+//     amenities,
+//     images,
+//     videos,
+//     virtualTour,
+//     listedBy: req.user._id,
+//   });
+
+//   if (!property) {
+//     throw new ApiError(500, 'Something went wrong while creating the property');
+//   }
+
+//   return res.status(201).json(
+//     new ApiResponse(201, property, req.t('propertyListedSuccess'))
+//   );
+// });
+
+
 const createProperty = asyncHandler(async (req, res) => {
+  // Destructure all fields, including new SEO fields
   const {
-    title,
-    description,
-    price,
-    locationAddress,
-    location,
-    propertyType,
-    status,
-    area,
-    bedrooms,
-    bathrooms,
-    amenities,
-    images,
-    videos,
-    virtualTour,
+    title, description, price, locationAddress, location, propertyType,
+    status, area, bedrooms, bathrooms, amenities, images, videos, virtualTour,
+    metaTitle, metaDescription, metaKeywords
   } = req.body;
 
   if (!title || !description || !price || !locationAddress || !location || !propertyType) {
@@ -30,20 +70,12 @@ const createProperty = asyncHandler(async (req, res) => {
   }
 
   const property = await Property.create({
-    title,
-    description,
-    price,
-    locationAddress,
-    location,
-    propertyType,
-    status,
-    area,
-    bedrooms,
-    bathrooms,
-    amenities,
-    images,
-    videos,
-    virtualTour,
+    title, description, price, locationAddress, location, propertyType,
+    status, area, bedrooms, bathrooms, amenities, images, videos, virtualTour,
+    metaTitle,
+    metaDescription,
+    // Convert comma-separated string to an array
+    metaKeywords: metaKeywords ? metaKeywords.split(',').map(key => key.trim()) : [],
     listedBy: req.user._id,
   });
 
@@ -55,7 +87,6 @@ const createProperty = asyncHandler(async (req, res) => {
     new ApiResponse(201, property, req.t('propertyListedSuccess'))
   );
 });
-
 
 const getAllProperties = asyncHandler(async (req, res) => {
   // --- Filtering & Searching ---
@@ -158,19 +189,49 @@ const getPropertyById = asyncHandler(async (req, res) => {
   );
 });
 
+// const updateProperty = asyncHandler(async (req, res) => {
+//   const { id } = req.params;
+
+//   if (!mongoose.Types.ObjectId.isValid(id)) {
+//     throw new ApiError(400, req.t('errorInvalidPropertyId'));
+//   }
+
+//   const updatedProperty = await Property.findByIdAndUpdate(
+//     id,
+//     {
+//       $set: req.body,
+//     },
+//     { new: true, runValidators: true }
+//   );
+
+//   if (!updatedProperty) {
+//     throw new ApiError(404, req.t('errorPropertyNotFound'));
+//   }
+
+//   return res.status(200).json(
+//     new ApiResponse(200, updatedProperty, req.t('propertyUpdatedSuccess'))
+//   );
+// });
+
 const updateProperty = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  const { metaKeywords, ...restOfBody } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     throw new ApiError(400, req.t('errorInvalidPropertyId'));
   }
 
+  const updateData = { ...restOfBody };
+
+  // If metaKeywords are provided as a string, convert them to an array
+  if (metaKeywords) {
+    updateData.metaKeywords = metaKeywords.split(',').map(key => key.trim());
+  }
+
   const updatedProperty = await Property.findByIdAndUpdate(
     id,
-    {
-      $set: req.body,
-    },
-    { new: true, runValidators: true }
+    { $set: updateData },
+    { new: true, runValidators: true } // Return the updated document and run schema validations
   );
 
   if (!updatedProperty) {

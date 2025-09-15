@@ -89,6 +89,9 @@ const propertySchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    metaTitle: { type: String },
+    metaDescription: { type: String },
+    metaKeywords: { type: [String] },
   },
   {
     timestamps: true,
