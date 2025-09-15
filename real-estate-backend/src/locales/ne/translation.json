@@ -1,0 +1,18 @@
+{
+  "registrationSuccess": "प्रयोगकर्ता सफलतापूर्वक दर्ता भयो",
+  "loginSuccess": "प्रयोगकर्ता सफलतापूर्वक लग इन भयो",
+  "logoutSuccess": "प्रयोगकर्ता सफलतापूर्वक लग आउट भयो",
+  "profileUpdatedSuccess": "प्रोफाइल सफलतापूर्वक अपडेट भयो",
+  "avatarUpdatedSuccess": "अवतार सफलतापूर्वक अपडेट भयो",
+  "passwordChangedSuccess": "पासवर्ड सफलतापूर्वक परिवर्तन भयो",
+  "passwordResetSuccess": "पासवर्ड सफलतापूर्वक रिसेट भयो",
+  "tokenSentToEmail": "टोकन इमेलमा पठाइएको छ!",
+  "accessTokenRefreshed": "एक्सेस टोकन रिफ्रेस भयो",
+  "userDetailsFetched": "प्रयोगकर्ताको विवरण सफलतापूर्वक प्राप्त भयो",
+  "errorUserNotFound": "प्रयोगकर्ता फेला परेन",
+  "errorInvalidCredentials": "अमान्य प्रयोगकर्ता प्रमाणहरू",
+  "errorEmailExists": "यो इमेल भएको प्रयोगकर्ता पहिले नै अवस्थित छ",
+  "errorAllFieldsRequired": "सबै फिल्डहरू आवश्यक छन्",
+  "errorInvalidToken": "टोकन अमान्य छ वा म्याद सकिएको छ",
+  "errorUnauthorized": "अनाधिकृत अनुरोध"
+}

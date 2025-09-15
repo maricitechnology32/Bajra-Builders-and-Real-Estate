@@ -6,6 +6,9 @@ import cookieParser from 'cookie-parser';
 const app = express();
 import passport from 'passport';
 import './config/passport.setup.js';
+import i18next from './config/i18next.config.js'; // Import i18next config
+import i18nextMiddleware from 'i18next-http-middleware'; // Import the middleware
+
 
 // Use CORS middleware
 app.use(
@@ -21,6 +24,7 @@ app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(cookieParser()); // Use cookie-parser middleware
 app.use(passport.initialize());
+app.use(i18nextMiddleware.handle(i18next));
 
 // --- Routes ---
 import userRouter from './routes/user.routes.js';

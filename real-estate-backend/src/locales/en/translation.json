@@ -1,0 +1,18 @@
+{
+  "registrationSuccess": "User registered successfully",
+  "loginSuccess": "User logged in successfully",
+  "logoutSuccess": "User logged out successfully",
+  "profileUpdatedSuccess": "Profile updated successfully",
+  "avatarUpdatedSuccess": "Avatar updated successfully",
+  "passwordChangedSuccess": "Password changed successfully",
+  "passwordResetSuccess": "Password reset successfully",
+  "tokenSentToEmail": "Token sent to email!",
+  "accessTokenRefreshed": "Access token refreshed",
+  "userDetailsFetched": "User details fetched successfully",
+  "errorUserNotFound": "User not found",
+  "errorInvalidCredentials": "Invalid user credentials",
+  "errorEmailExists": "User with this email already exists",
+  "errorAllFieldsRequired": "All fields are required",
+  "errorInvalidToken": "Token is invalid or has expired",
+  "errorUnauthorized": "Unauthorized request"
+}
