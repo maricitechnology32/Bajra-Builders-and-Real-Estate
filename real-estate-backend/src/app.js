@@ -15,6 +15,8 @@ import testimonialRouter from './routes/testimonial.routes.js';
 import appointmentRouter from './routes/appointment.routes.js';
 import postRouter from './routes/post.routes.js';
 import savedSearchRouter from './routes/savedSearch.routes.js';
+import callbackRequestRouter from './routes/callbackRequest.routes.js';
+
 // Use CORS middleware
 app.use(
   cors({
@@ -37,11 +39,12 @@ import userRouter from './routes/user.routes.js';
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/properties', propertyRouter);
 app.use('/api/v1/inquiries', inquiryRouter);
-app.use('/api/v1/wishlist', wishlistRouter); 
-app.use('/api/v1/testimonials', testimonialRouter); 
+app.use('/api/v1/wishlist', wishlistRouter);
+app.use('/api/v1/testimonials', testimonialRouter);
 app.use('/api/v1/appointments', appointmentRouter);
 app.use('/api/v1/posts', postRouter);
 app.use('/api/v1/saved-searches', savedSearchRouter);
+app.use('/api/v1/callbacks', callbackRequestRouter);
 // A simple route for health check
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Server is healthy!' });

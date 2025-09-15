@@ -47,5 +47,9 @@
   "savedSearchCreatedSuccess": "Search saved successfully",
   "savedSearchesFetchedSuccess": "Saved searches fetched successfully",
   "savedSearchDeletedSuccess": "Saved search deleted successfully",
-  "errorSavedSearchNotFound": "Saved search not found or you do not have permission to access it"
+  "errorSavedSearchNotFound": "Saved search not found or you do not have permission to access it",
+  "callbackRequestSuccess": "Callback requested successfully. We will contact you shortly.",
+  "callbackRequestsFetchedSuccess": "Callback requests fetched successfully",
+  "callbackRequestUpdatedSuccess": "Callback request updated successfully",
+  "errorCallbackRequestNotFound": "Callback request not found"
 }
