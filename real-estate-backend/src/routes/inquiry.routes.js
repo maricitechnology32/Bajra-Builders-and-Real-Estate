@@ -3,18 +3,24 @@ import {
   createInquiry,
   getAllInquiries,
   updateInquiryStatus,
-  getMyInquiries, // 1. Import the new controller
+  getMyInquiries,
 } from '../controllers/inquiry.controller.js';
 import { verifyJWT, verifyRole } from '../middlewares/auth.middleware.js';
 
 const router = Router();
 
-// --- User-Facing Routes ---
-router.route('/').post(verifyJWT, createInquiry);
-router.route('/my-inquiries').get(verifyJWT, getMyInquiries); // 2. Add the new route
+// Apply login check to all routes in this file
+router.use(verifyJWT);
 
-// --- Admin-Only Routes ---
-router.route('/admin/all').get(verifyJWT, verifyRole(['ADMIN']), getAllInquiries);
-router.route('/admin/:id').patch(verifyJWT, verifyRole(['ADMIN']), updateInquiryStatus);
+// --- Routes for Regular Users ---
+router.route('/').post(createInquiry);
+router.route('/my-inquiries').get(getMyInquiries);
+
+// --- Routes for Admins Only ---
+// The path is now just '/', but it's protected by the ADMIN role check
+router.route('/').get(verifyRole(['ADMIN']), getAllInquiries);
+
+// The path is now just '/:id'
+router.route('/:id').patch(verifyRole(['ADMIN']), updateInquiryStatus);
 
 export default router;

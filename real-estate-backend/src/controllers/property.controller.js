@@ -4,16 +4,20 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import { Property } from '../models/property.model.js';
-import { deleteFromCloudinary } from '../utils/cloudinary.js';
 import mongoose from 'mongoose';
+import { uploadOnCloudinary, deleteFromCloudinary } from '../utils/cloudinary.js';
 
- 
+
+
+
+
 
 // const createProperty = asyncHandler(async (req, res) => {
-//   // Destructure all fields, including new SEO fields
+//   // Destructure all fields, including the new costDetails object
 //   const {
 //     title, description, price, locationAddress, location, propertyType,
 //     status, area, bedrooms, bathrooms, amenities, images, videos, virtualTour,
+//     costDetails, // Add this
 //     metaTitle, metaDescription, metaKeywords
 //   } = req.body;
 
@@ -24,9 +28,9 @@ import mongoose from 'mongoose';
 //   const property = await Property.create({
 //     title, description, price, locationAddress, location, propertyType,
 //     status, area, bedrooms, bathrooms, amenities, images, videos, virtualTour,
+//     costDetails, // Add this
 //     metaTitle,
 //     metaDescription,
-//     // Convert comma-separated string to an array
 //     metaKeywords: metaKeywords ? metaKeywords.split(',').map(key => key.trim()) : [],
 //     listedBy: req.user._id,
 //   });
@@ -42,22 +46,47 @@ import mongoose from 'mongoose';
 
 
 const createProperty = asyncHandler(async (req, res) => {
-  // Destructure all fields, including the new costDetails object
+  // 1. Destructure text fields from req.body
   const {
     title, description, price, locationAddress, location, propertyType,
-    status, area, bedrooms, bathrooms, amenities, images, videos, virtualTour,
-    costDetails, // Add this
+    status, area, bedrooms, bathrooms, amenities, videos, virtualTour,
     metaTitle, metaDescription, metaKeywords
   } = req.body;
 
-  if (!title || !description || !price || !locationAddress || !location || !propertyType) {
+  // 2. Get the uploaded image files from req.files
+  const imageFiles = req.files;
+
+  // 3. Basic Validation
+  if (!title || !description || !price || !locationAddress || !location) {
     throw new ApiError(400, req.t('errorAllFieldsRequired'));
   }
+  if (!imageFiles || imageFiles.length === 0) {
+    throw new ApiError(400, 'At least one image is required.');
+  }
 
+  // 4. Upload all images to Cloudinary in parallel
+  const imageUploadPromises = imageFiles.map(file => uploadOnCloudinary(file.path));
+  const uploadedImages = await Promise.all(imageUploadPromises);
+
+  if (uploadedImages.some(upload => !upload)) {
+    throw new ApiError(500, 'Failed to upload one or more images to Cloudinary.');
+  }
+
+  // 5. Format the image data for the database model
+  const imagesForDb = uploadedImages.map(upload => ({
+    url: upload.secure_url,
+    cloudinary_id: upload.public_id,
+    sourceType: 'upload'
+  }));
+
+  // 6. Create the property with all the data
   const property = await Property.create({
     title, description, price, locationAddress, location, propertyType,
-    status, area, bedrooms, bathrooms, amenities, images, videos, virtualTour,
-    costDetails, // Add this
+    status, area, bedrooms, bathrooms,
+    amenities: amenities ? amenities.split(',').map(item => item.trim()) : [],
+    images: imagesForDb,
+    videos, // Assuming these are sent as links for now
+    virtualTour,
     metaTitle,
     metaDescription,
     metaKeywords: metaKeywords ? metaKeywords.split(',').map(key => key.trim()) : [],
@@ -72,7 +101,6 @@ const createProperty = asyncHandler(async (req, res) => {
     new ApiResponse(201, property, req.t('propertyListedSuccess'))
   );
 });
-
 
 const getAllProperties = asyncHandler(async (req, res) => {
   // --- Filtering & Searching ---
@@ -217,7 +245,7 @@ const updateProperty = asyncHandler(async (req, res) => {
   const updatedProperty = await Property.findByIdAndUpdate(
     id,
     { $set: updateData },
-    { new: true, runValidators: true } // Return the updated document and run schema validations
+    { new: true, runValidators: true }
   );
 
   if (!updatedProperty) {
@@ -257,10 +285,18 @@ const deleteProperty = asyncHandler(async (req, res) => {
   );
 });
 
+const getAdminAllProperties = asyncHandler(async (req, res) => {
+  const properties = await Property.find().sort({ createdAt: -1 });
+  return res.status(200).json(
+    new ApiResponse(200, properties, req.t('propertiesFetchedSuccess'))
+  );
+});
+
 export {
   createProperty,
   getAllProperties,
   getPropertyById,
   updateProperty,
-  deleteProperty
+  deleteProperty,
+  getAdminAllProperties
 };

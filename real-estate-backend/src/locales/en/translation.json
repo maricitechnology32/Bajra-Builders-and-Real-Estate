@@ -54,5 +54,7 @@
   "errorCallbackRequestNotFound": "Callback request not found",
   "seoDataSavedSuccess": "SEO data saved successfully",
   "seoDataFetchedSuccess": "SEO data fetched successfully",
-  "errorSeoDataNotFound": "SEO data for this page has not been configured yet"
+  "errorSeoDataNotFound": "SEO data for this page has not been configured yet",
+  "passwordResetSubject": "Your password reset token (valid for 10 min)"
+ 
 }

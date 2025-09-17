@@ -1,4 +1,4 @@
- 
+
 
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { ApiError } from '../utils/ApiError.js';
@@ -156,21 +156,34 @@ const googleLoginCallback = asyncHandler(async (req, res) => {
   if (!user) {
     throw new ApiError(401, 'User authentication failed');
   }
+
   const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
-  const options = { httpOnly: true, secure: process.env.NODE_ENV === 'production' };
+
+  // --- ADD THIS ROLE-BASED REDIRECT LOGIC ---
+  const redirectURL = user.role === 'ADMIN'
+    ? `${process.env.FRONTEND_URL}/admin/dashboard`
+    : `${process.env.FRONTEND_URL}/dashboard`;
+
+  const options = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+  };
 
   return res
     .status(200)
     .cookie('accessToken', accessToken, options)
     .cookie('refreshToken', refreshToken, options)
-    .redirect('http://localhost:3000/dashboard');
+    .redirect(redirectURL); // Use the dynamic redirect URL
 });
+
+
 
 const forgotPassword = asyncHandler(async (req, res, next) => {
   const { email } = req.body;
   if (!email) {
-    throw new ApiError(400, 'Please provide an email');
+    throw new ApiError(400, req.t('errorAllFieldsRequired'));
   }
+
   const user = await User.findOne({ email });
 
   if (user) {
@@ -178,15 +191,26 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     const resetURL = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
-    const message = `Forgot your password? Click the following link to reset it: ${resetURL}\nIf you didn't forget your password, please ignore this email.`;
+
+    const message = `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+        <h2>Password Reset Request</h2>
+        <p>You requested a password reset. Please click the button below to set a new password. This link is valid for 10 minutes.</p>
+        <a href="${resetURL}" style="background-color: #4f46e5; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+          Reset Your Password
+        </a>
+        <p>If you did not request a password reset, please ignore this email.</p>
+      </div>
+    `;
 
     try {
       await sendEmail({
         email: user.email,
-        subject: 'Your password reset token (valid for 10 min)',
-        message,
+        subject: req.t('passwordResetSubject'),
+        html: message,
       });
     } catch (err) {
+      // If email fails to send, clear the token from the DB to allow a retry
       user.forgotPasswordToken = undefined;
       user.forgotPasswordTokenExpiry = undefined;
       await user.save({ validateBeforeSave: false });
@@ -194,7 +218,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
     }
   }
 
-  res.status(200).json(new ApiResponse(200, {}, req.t('tokenSentToEmail')));
+  return res.status(200).json(new ApiResponse(200, {}, req.t('tokenSentToEmail')));
 });
 
 const updateUserProfile = asyncHandler(async (req, res) => {
