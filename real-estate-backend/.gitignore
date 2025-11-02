@@ -1,12 +1,30 @@
+ 
+
 # Dependencies
 /node_modules
 
-# Environment variables
+# Environment Variables
+# Never commit your .env file
 .env
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
+pnpm-debug.log*
+logs
+*.log
 
+# Build output
+/dist
+/build
+
+# Temporary files from uploads
 /public/temp
+
+# IDE and editor directories
+.idea
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db

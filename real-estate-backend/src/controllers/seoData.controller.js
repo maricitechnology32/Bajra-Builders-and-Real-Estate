@@ -1,7 +1,7 @@
-import { asyncHandler } from '../utils/asyncHandler.js';
+import { SeoData } from '../models/seoData.model.js';
 import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
-import { SeoData } from '../models/seoData.model.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
 
 /**
  * @description Create or update SEO data for a specific page. Admin access required.
@@ -52,4 +52,5 @@ const getSeoData = asyncHandler(async (req, res) => {
   );
 });
 
-export { upsertSeoData, getSeoData };
+export { getSeoData, upsertSeoData };
+
