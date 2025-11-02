@@ -1,22 +1,26 @@
 import { Router } from 'express';
 import {
-  registerUser,
+  changePassword,
+  deleteUserByAdmin,
+  forgotPassword,
+  getAllUsersForAdmin,
+  getCurrentUser,
+  getUserByIdForAdmin,
+  googleLoginCallback,
   loginUser,
   logoutUser,
   refreshAccessToken,
-  googleLoginCallback,
-  getCurrentUser,
-  forgotPassword,
+  registerUser,
   resetPassword,
   updateUserAvatar,
   updateUserProfile,
-  changePassword
+  updateUserRoleByAdmin
 } from '../controllers/user.controller.js';
-console.log('Is the changePassword controller a function?', typeof changePassword);
+// console.log('Is the changePassword controller a function?', typeof changePassword);
 
-import { upload } from '../middlewares/multer.middleware.js';
 import passport from 'passport';
 import { verifyJWT, verifyRole } from '../middlewares/auth.middleware.js';
+import { upload } from '../middlewares/multer.middleware.js';
 
 
 const router = Router();
@@ -45,6 +49,10 @@ router.route('/me').get(verifyJWT, getCurrentUser); // To get the current logged
 router.route('/avatar').patch(verifyJWT, upload.single('avatar'), updateUserAvatar);
 router.route('/update-profile').patch(verifyJWT, updateUserProfile);
 router.route('/change-password').post(verifyJWT, changePassword)
+router.route('/admin/all-users').get(verifyJWT, verifyRole(['ADMIN']), getAllUsersForAdmin);
+router.route('/admin/update-role/:id').patch(verifyJWT, verifyRole(['ADMIN']), updateUserRoleByAdmin);
+router.route('/admin/:id').delete(verifyJWT, verifyRole(['ADMIN']), deleteUserByAdmin);
+router.route('/admin/:id').get(verifyJWT, verifyRole(['ADMIN']), getUserByIdForAdmin);
 // router.route('/password-update-test').post(verifyJWT, changePassword);
 router.route('/admin/analytics').get(
   verifyJWT,              // 1. Checks if the user is logged in.

@@ -24,6 +24,11 @@ const testimonialSchema = new mongoose.Schema(
       enum: ['Pending', 'Approved', 'Rejected'],
       default: 'Pending',
     },
+   videoUrl: {
+  type: String,
+  trim: true,
+  
+},
   },
   {
     timestamps: true,

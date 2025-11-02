@@ -1,13 +1,13 @@
 
 
-import { asyncHandler } from '../utils/asyncHandler.js';
-import { ApiError } from '../utils/ApiError.js';
-import { User } from '../models/user.model.js';
-import { ApiResponse } from '../utils/ApiResponse.js';
-import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import { User } from '../models/user.model.js';
+import { ApiError } from '../utils/ApiError.js';
+import { ApiResponse } from '../utils/ApiResponse.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
+import { deleteFromCloudinary, uploadOnCloudinary } from '../utils/cloudinary.js';
 import sendEmail from '../utils/mail.js';
-import { uploadOnCloudinary, deleteFromCloudinary } from '../utils/cloudinary.js';
 
 // This helper function does not have access to `req`, so its error messages remain in English.
 // The controllers that call it will provide the translated error messages to the user.
@@ -293,16 +293,62 @@ const resetPassword = asyncHandler(async (req, res, next) => {
     .json(new ApiResponse(200, {}, req.t('passwordResetSuccess')));
 });
 
+const getUserByIdForAdmin = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new ApiError(400, 'Invalid user ID');
+  }
+
+  const user = await User.findById(id).select('-password -refreshToken');
+  if (!user) {
+    throw new ApiError(404, req.t('errorUserNotFound'));
+  }
+  
+  return res.status(200).json(new ApiResponse(200, user, "User details fetched successfully"));
+});
+const getAllUsersForAdmin = asyncHandler(async (req, res) => {
+  // Find all users except the admin who is currently logged in
+  const users = await User.find({ _id: { $ne: req.user._id } }).select('-password -refreshToken');
+  return res.status(200).json(new ApiResponse(200, users, "Users fetched successfully"));
+});
+const updateUserRoleByAdmin = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { role } = req.body;
+
+  if (!['BUYER', 'ADMIN'].includes(role)) {
+    throw new ApiError(400, 'Invalid role specified');
+  }
+
+   const updatedUser = await User.findByIdAndUpdate(id, { role }, { new: true }).select('-password -refreshToken');
+  if (!updatedUser) {
+    throw new ApiError(404, req.t('errorUserNotFound'));
+  }
+
+  return res.status(200).json(new ApiResponse(200, updatedUser, "User role updated successfully"));
+});
+
+const deleteUserByAdmin = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const userToDelete = await User.findById(id);
+
+    if (!userToDelete) {
+        throw new ApiError(404, req.t('errorUserNotFound'));
+    }
+    // Add logic here to delete user's associated data if necessary (e.g., properties, inquiries)
+    
+    await User.findByIdAndDelete(id);
+
+    return res.status(200).json(new ApiResponse(200, {}, "User deleted successfully"));
+});
+
+
+
+
 export {
-  registerUser,
-  loginUser,
+  changePassword, deleteUserByAdmin, forgotPassword, getAllUsersForAdmin, getCurrentUser, getUserByIdForAdmin, googleLoginCallback, loginUser,
   logoutUser,
-  refreshAccessToken,
-  getCurrentUser,
-  googleLoginCallback,
-  forgotPassword,
-  resetPassword,
+  refreshAccessToken, registerUser, resetPassword,
   updateUserAvatar,
-  updateUserProfile,
-  changePassword,
+  updateUserProfile, updateUserRoleByAdmin
 };
+

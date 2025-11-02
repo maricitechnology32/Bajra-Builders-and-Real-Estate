@@ -55,6 +55,10 @@
   "seoDataSavedSuccess": "SEO data saved successfully",
   "seoDataFetchedSuccess": "SEO data fetched successfully",
   "errorSeoDataNotFound": "SEO data for this page has not been configured yet",
-  "passwordResetSubject": "Your password reset token (valid for 10 min)"
- 
+  "passwordResetSubject": "Your password reset token (valid for 10 min)",
+  "serviceCreatedSuccess": "Service created successfully",
+  "servicesFetchedSuccess": "Services fetched successfully",
+  "serviceUpdatedSuccess": "Service updated successfully",
+  "serviceDeletedSuccess": "Service deleted successfully",
+  "errorServiceNotFound": "Service not found"
 }

@@ -1,33 +1,35 @@
+ 
+
 import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema(
   {
+    // --- UPDATE THESE FIELDS ---
     title: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
+      en: { type: String, required: true, trim: true },
+      ne: { type: String, required: true, trim: true },
     },
     slug: {
       type: String,
       required: true,
-      unique: true,
+      unique: false,
       lowercase: true,
       index: true,
     },
     content: {
-      type: String,
-      required: true,
+      en: { type: String, required: true },
+      ne: { type: String, required: true },
     },
     excerpt: {
-      type: String, // A short summary for display in lists
-      trim: true,
+      en: { type: String, trim: true },
+      ne: { type: String, trim: true },
     },
+
+    // --- The rest of the model is likely correct ---
     featuredImage: {
       url: { type: String },
       cloudinary_id: { type: String },
     },
-    // Reference to the Admin who wrote the post
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
@@ -38,10 +40,7 @@ const postSchema = new mongoose.Schema(
       enum: ['Draft', 'Published'],
       default: 'Draft',
     },
-    tags: {
-      type: [String],
-    },
-    // Fields for SEO Management (User Story 37)
+    tags: { type: [String] },
     metaTitle: { type: String },
     metaDescription: { type: String },
     metaKeywords: { type: [String] },
@@ -51,10 +50,10 @@ const postSchema = new mongoose.Schema(
   }
 );
 
-// Mongoose hook to automatically generate a slug from the title before saving
+// This hook automatically creates the slug from the ENGLISH title
 postSchema.pre('validate', function (next) {
-  if (this.isModified('title')) {
-    this.slug = this.title
+  if (this.isModified('title.en')) {
+    this.slug = (this.title.en || '')
       .toLowerCase()
       .replace(/\s+/g, '-') // Replace spaces with -
       .replace(/[^\w\-]+/g, '') // Remove all non-word chars

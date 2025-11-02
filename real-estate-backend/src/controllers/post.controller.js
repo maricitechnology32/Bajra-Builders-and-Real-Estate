@@ -141,11 +141,25 @@ const getAllPostsForAdmin = asyncHandler(async (req, res) => {
   return res.status(200).json(new ApiResponse(200, posts, req.t('postsFetchedSuccess')));
 });
 
+const getPostByIdForAdmin = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new ApiError(400, 'Invalid post ID');
+    }
+    const post = await Post.findById(id).populate('author', 'fullName');
+    if (!post) {
+        throw new ApiError(404, req.t('errorPostNotFound'));
+    }
+    return res.status(200).json(new ApiResponse(200, post, req.t('postFetchedSuccess')));
+});
+
 export {
   createPost,
   updatePost,
   deletePost,
   getAllPosts,
   getPostBySlug,
-  getAllPostsForAdmin
+  getAllPostsForAdmin,
+  getPostByIdForAdmin
+
 };

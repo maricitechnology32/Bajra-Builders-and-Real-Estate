@@ -1,18 +1,49 @@
-import { asyncHandler } from '../utils/asyncHandler.js';
+import mongoose from 'mongoose';
+import { Testimonial } from '../models/testimonial.model.js';
 import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
-import { Testimonial } from '../models/testimonial.model.js';
-import mongoose from 'mongoose';
+import { asyncHandler } from '../utils/asyncHandler.js';
 
+// const createTestimonial = asyncHandler(async (req, res) => {
+//   // Now receives video data directly in the body
+//   const { content, rating, video } = req.body;
+//   const userId = req.user._id;
+
+//   if (!content) {
+//     throw new ApiError(400, req.t('errorTestimonialContentRequired'));
+//   }
+
+//   const testimonial = await Testimonial.create({
+//     content,
+//     rating,
+//     user: userId,
+//     video, // Save the video object { url, cloudinary_id }
+//   });
+
+//   return res.status(201).json(
+//     new ApiResponse(201, testimonial, req.t('testimonialSubmittedSuccess'))
+//   );
+// });
+
+// The createTestimonial function is now much simpler
 const createTestimonial = asyncHandler(async (req, res) => {
-  const { content, rating } = req.body;
+  const { content, rating, videoUrl } = req.body; // Expect videoUrl string
   const userId = req.user._id;
 
   if (!content) {
     throw new ApiError(400, req.t('errorTestimonialContentRequired'));
   }
-  const testimonial = await Testimonial.create({ content, rating, user: userId });
-  return res.status(201).json(new ApiResponse(201, testimonial, req.t('testimonialSubmittedSuccess')));
+
+  const testimonial = await Testimonial.create({
+    content,
+    rating,
+    user: userId,
+    videoUrl, // Save the URL
+  });
+
+  return res.status(201).json(
+    new ApiResponse(201, testimonial, req.t('testimonialSubmittedSuccess'))
+  );
 });
 
 const getApprovedTestimonials = asyncHandler(async (req, res) => {
@@ -43,8 +74,6 @@ const updateTestimonialStatus = asyncHandler(async (req, res) => {
 });
 
 export {
-  createTestimonial,
-  getApprovedTestimonials,
-  getAllTestimonialsForAdmin,
-  updateTestimonialStatus,
+  createTestimonial, getAllTestimonialsForAdmin, getApprovedTestimonials, updateTestimonialStatus
 };
+

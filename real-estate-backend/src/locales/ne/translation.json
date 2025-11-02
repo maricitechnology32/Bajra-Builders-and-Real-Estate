@@ -55,5 +55,10 @@
   "seoDataSavedSuccess": "SEO डाटा सफलतापूर्वक सुरक्षित गरियो",
   "seoDataFetchedSuccess": "SEO डाटा सफलतापूर्वक प्राप्त गरियो",
   "errorSeoDataNotFound": "यस पृष्ठको लागि SEO डाटा अझै कन्फिगर गरिएको छैन",
-  "passwordResetSubject": "तपाईंको पासवर्ड रिसेट टोकन (१० मिनेटको लागि मान्य)"
+  "passwordResetSubject": "तपाईंको पासवर्ड रिसेट टोकन (१० मिनेटको लागि मान्य)",
+  "serviceCreatedSuccess": "सेवा सफलतापूर्वक सिर्जना भयो",
+  "servicesFetchedSuccess": "सेवाहरू सफलतापूर्वक प्राप्त गरियो",
+  "serviceUpdatedSuccess": "सेवा सफलतापूर्वक अद्यावधिक भयो",
+  "serviceDeletedSuccess": "सेवा सफलतापूर्वक हटाइयो",
+  "errorServiceNotFound": "सेवा फेला परेन"
 }
